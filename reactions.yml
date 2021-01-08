@@ -1,0 +1,6 @@
+config:
+  - emoji: "⛔"
+    phrases:
+      - "bad"
+      - "words"
+      - "here"

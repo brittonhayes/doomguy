@@ -1,0 +1,4 @@
+config:
+  api_key: ""
+  language: "en"
+  rate: 5

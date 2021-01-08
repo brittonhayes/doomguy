@@ -1,0 +1,8 @@
+```
+{{ abbrev 800 .Description }}
+```
+
+{{ if .Metacritic -}}🌟 **Rating**: {{.Metacritic }}{{end}}
+{{ if .MetacriticURL -}}🗳️ **Review**: {{.MetacriticURL }}{{end}}
+{{ if .Developer -}}✍️ **Developer**: {{ .Developer }}{{end}}
+{{ if .Website -}}🌐 **Website**: {{ .Website }}{{end}}

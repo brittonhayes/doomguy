@@ -1,0 +1,17 @@
+
+Root Commands
+```yaml
+{{ range .Cmds -}}
+- Command: {{ .Command }}
+  Description: {{ .Description }}
+
+{{ end }}
+```
+
+Sub-Commands
+```yaml
+{{ range .Subs -}}
+- Command: {{ .Command }}
+  Description: {{ .Description }}
+{{end }}
+```
