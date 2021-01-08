@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/diamondburned/arikawa/v2/bot"
 	"github.com/diamondburned/arikawa/v2/gateway"
+	"github.com/diamondburned/arikawa/v2/state"
 	"github.com/diamondburned/arikawa/v2/voice"
 	"github.com/diamondburned/arikawa/v2/voice/voicegateway"
 	log "github.com/sirupsen/logrus"
@@ -11,6 +12,7 @@ import (
 
 type Speaker struct {
 	Ctx   *bot.Context
+	State *state.State
 	Voice *voice.Session
 }
 
@@ -21,31 +23,54 @@ func (s *Speaker) Setup(sub *bot.Subcommand) {
 	sub.Description = "Join voice channels, play music, or youtube videos"
 	sub.ChangeCommandInfo("Join", "join", "Join the voice channel")
 	sub.ChangeCommandInfo("Leave", "leave", "Leave the voice channel")
-	s.Ctx.AddIntents(gateway.IntentGuildVoiceStates)
-	s.Ctx.AddIntents(gateway.IntentGuildMessages)
 }
 
 // NewSpeaker generates a new Speaker instance
-func NewSpeaker() *Speaker {
-	return &Speaker{}
+func NewSpeaker(state *state.State) *Speaker {
+	if err := state.Open(); err != nil {
+		log.Fatalln("failed to open gateway:", err)
+	}
+
+	v, err := voice.NewSession(state)
+	if err != nil {
+		log.Fatalln("failed to create voice session:", err)
+	}
+
+	return &Speaker{
+		State: state,
+		Voice: v,
+	}
 }
 
 // Join allows the bot to join a voice channel from an user's request
 func (s *Speaker) Join(m *gateway.MessageCreateEvent) error {
-	v, err := voice.NewSession(s.Ctx.State)
+	vs, err := s.State.VoiceState(m.GuildID, m.Author.ID)
 	if err != nil {
-		log.Fatal("Failed to create a new voice session:", err)
+		log.Error("Failed to get voice state:", err)
+		return nil
+	}
+
+	if !vs.ChannelID.IsValid() {
+		log.Errorf("voice state channel is invalid, %#v", vs)
+		return fmt.Errorf("**user is not in a channel**")
+	}
+
+	c, err := s.State.Channel(vs.ChannelID)
+	if err != nil {
+		log.Fatalln("failed to get channel:", err)
 	}
 
 	// Fetch voice state from store
-	err = v.JoinChannel(m.GuildID, m.ChannelID, false, false)
+	err = s.Voice.JoinChannel(m.GuildID, c.ID, false, false)
 	if err != nil {
+		//log.Errorf("MESSAGE: %#v\nSPEAKER: %#v", m, s)
+		//panic(err)
 		log.Error("Failed to join channel:", err)
 		return fmt.Errorf("**failed to join channel**")
 	}
 
 	// Indicate speaking
-	if err := v.Speaking(voicegateway.Microphone); err != nil {
+	if err := s.Voice.Speaking(voicegateway.Microphone); err != nil {
 		log.Errorf("failed to indicate speaking, %s", err.Error())
 		return nil
 	}

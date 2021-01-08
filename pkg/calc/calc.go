@@ -2,7 +2,6 @@ package calc
 
 import (
 	"fmt"
-	. "github.com/brittonhayes/doomguy/internal"
 	"github.com/brittonhayes/doomguy/pkg/middleware"
 	"github.com/brittonhayes/doomguy/pkg/template"
 	"github.com/diamondburned/arikawa/v2/bot"
@@ -29,11 +28,7 @@ func (c *Calc) Setup(sub *bot.Subcommand) {
 }
 
 // Add up all of the passed in integers
-func (c *Calc) Add(m *gateway.MessageCreateEvent, nums ...int) (string, error) {
-	// Indicate that the bot is
-	// working on a request
-	Typing(m, c.Ctx)
-
+func (c *Calc) Add(_ *gateway.MessageCreateEvent, nums ...int) (string, error) {
 	if len(nums) <= 0 {
 		return "", fmt.Errorf(template.Usage("math add 1 2 3 4"))
 	}
@@ -49,11 +44,7 @@ func (c *Calc) Add(m *gateway.MessageCreateEvent, nums ...int) (string, error) {
 }
 
 // Multiply all of the passed in integers
-func (c *Calc) Multiply(m *gateway.MessageCreateEvent, a int, b int) (string, error) {
-	// Indicate that the bot is
-	// working on a request
-	Typing(m, c.Ctx)
-
+func (c *Calc) Multiply(_ *gateway.MessageCreateEvent, a int, b int) (string, error) {
 	result := a * b
 	msg := fmt.Sprintf("```%v * %v = %#v```", a, b, result)
 	log.Info(msg)
@@ -61,11 +52,7 @@ func (c *Calc) Multiply(m *gateway.MessageCreateEvent, a int, b int) (string, er
 }
 
 // Divide all of the passed in integers
-func (c *Calc) Divide(m *gateway.MessageCreateEvent, a int, b int) (string, error) {
-	// Indicate that the bot is
-	// working on a request
-	Typing(m, c.Ctx)
-
+func (c *Calc) Divide(_ *gateway.MessageCreateEvent, a int, b int) (string, error) {
 	result := a / b
 	msg := fmt.Sprintf("```%v / %v = %#v```", a, b, result)
 	log.Info(msg)

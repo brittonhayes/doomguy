@@ -10,6 +10,7 @@ import (
 	"github.com/brittonhayes/doomguy/pkg/speaker"
 	"github.com/brittonhayes/doomguy/pkg/template"
 	"github.com/diamondburned/arikawa/v2/bot"
+	"github.com/diamondburned/arikawa/v2/voice"
 	"github.com/gobuffalo/packr/v2"
 	"github.com/jinzhu/configor"
 	"github.com/joho/godotenv"
@@ -50,6 +51,8 @@ func main() {
 
 	commands := base.NewBot(tpl)
 	wait, err := bot.Start(token, commands, func(ctx *bot.Context) error {
+		voice.AddIntents(ctx.Gateway)
+
 		// Setup pre-handlers
 		r.React(ctx)
 		// Setup user commands
@@ -60,7 +63,7 @@ func main() {
 		ctx.MustRegisterSubcommand(debug.NewDebug())
 		ctx.MustRegisterSubcommand(calc.NewCalc())
 		ctx.MustRegisterSubcommand(guild.NewGuild())
-		ctx.MustRegisterSubcommand(speaker.NewSpeaker())
+		ctx.MustRegisterSubcommand(speaker.NewSpeaker(ctx.State))
 		return nil
 	})
 	if err != nil {

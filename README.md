@@ -14,6 +14,10 @@ doomguy is a yaml\-configurable discord bot
 go get github.com/brittonhayes/doomguy
 ```
 
+### Tests
+
+\!\[Test\]\(https://github.com/brittonhayes/doomguy/workflows/Test/badge.svg\)
+
 You can use the "packr clean" command to clean up this\, and any other packr generated files\.
 
 ## Index

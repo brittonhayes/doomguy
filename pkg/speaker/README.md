@@ -9,7 +9,7 @@ import "github.com/brittonhayes/doomguy/pkg/speaker"
 ## Index
 
 - [type Speaker](<#type-speaker>)
-  - [func NewSpeaker() *Speaker](<#func-newspeaker>)
+  - [func NewSpeaker(state *state.State) *Speaker](<#func-newspeaker>)
   - [func (s *Speaker) Join(m *gateway.MessageCreateEvent) error](<#func-speaker-join>)
   - [func (s *Speaker) Leave(m *gateway.MessageCreateEvent) error](<#func-speaker-leave>)
   - [func (s *Speaker) Play(m *gateway.MessageCreateEvent, args bot.ArgumentParts)](<#func-speaker-play>)
@@ -21,6 +21,7 @@ import "github.com/brittonhayes/doomguy/pkg/speaker"
 ```go
 type Speaker struct {
     Ctx   *bot.Context
+    State *state.State
     Voice *voice.Session
 }
 ```
@@ -28,7 +29,7 @@ type Speaker struct {
 ### func NewSpeaker
 
 ```go
-func NewSpeaker() *Speaker
+func NewSpeaker(state *state.State) *Speaker
 ```
 
 NewSpeaker generates a new Speaker instance
