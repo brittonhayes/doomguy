@@ -10,9 +10,9 @@ import "github.com/brittonhayes/doomguy/pkg/calc"
 
 - [type Calc](<#type-calc>)
   - [func NewCalc() *Calc](<#func-newcalc>)
-  - [func (c *Calc) Add(_ *gateway.MessageCreateEvent, nums bot.RawArguments) (string, error)](<#func-calc-add>)
-  - [func (c *Calc) Divide(_ *gateway.MessageCreateEvent, a int, b int) (string, error)](<#func-calc-divide>)
-  - [func (c *Calc) Multiply(_ *gateway.MessageCreateEvent, a int, b int) (string, error)](<#func-calc-multiply>)
+  - [func (c *Calc) Add(m *gateway.MessageCreateEvent, nums ...int) (string, error)](<#func-calc-add>)
+  - [func (c *Calc) Divide(m *gateway.MessageCreateEvent, a int, b int) (string, error)](<#func-calc-divide>)
+  - [func (c *Calc) Multiply(m *gateway.MessageCreateEvent, a int, b int) (string, error)](<#func-calc-multiply>)
   - [func (c *Calc) Setup(sub *bot.Subcommand)](<#func-calc-setup>)
 - [type Calculator](<#type-calculator>)
 
@@ -39,7 +39,7 @@ NewCalc generates a new instance of Calc
 ### func \(\*Calc\) Add
 
 ```go
-func (c *Calc) Add(_ *gateway.MessageCreateEvent, nums bot.RawArguments) (string, error)
+func (c *Calc) Add(m *gateway.MessageCreateEvent, nums ...int) (string, error)
 ```
 
 Add up all of the passed in integers
@@ -47,7 +47,7 @@ Add up all of the passed in integers
 ### func \(\*Calc\) Divide
 
 ```go
-func (c *Calc) Divide(_ *gateway.MessageCreateEvent, a int, b int) (string, error)
+func (c *Calc) Divide(m *gateway.MessageCreateEvent, a int, b int) (string, error)
 ```
 
 Divide all of the passed in integers
@@ -55,7 +55,7 @@ Divide all of the passed in integers
 ### func \(\*Calc\) Multiply
 
 ```go
-func (c *Calc) Multiply(_ *gateway.MessageCreateEvent, a int, b int) (string, error)
+func (c *Calc) Multiply(m *gateway.MessageCreateEvent, a int, b int) (string, error)
 ```
 
 Multiply all of the passed in integers
@@ -72,9 +72,9 @@ Calculator contains the methods available to the Calc type
 
 ```go
 type Calculator interface {
-    Add(_ *gateway.MessageCreateEvent, nums bot.RawArguments) (string, error)
-    Multiply(_ *gateway.MessageCreateEvent, a int, b int) (string, error)
-    Divide(_ *gateway.MessageCreateEvent, a int, b int) (string, error)
+    Add(m *gateway.MessageCreateEvent, nums ...int) (string, error)
+    Multiply(m *gateway.MessageCreateEvent, a int, b int) (string, error)
+    Divide(m *gateway.MessageCreateEvent, a int, b int) (string, error)
 }
 ```
 

@@ -3,7 +3,6 @@ package speaker
 import (
 	"fmt"
 	"github.com/diamondburned/arikawa/v2/bot"
-	"github.com/diamondburned/arikawa/v2/discord"
 	"github.com/diamondburned/arikawa/v2/gateway"
 	"github.com/diamondburned/arikawa/v2/voice"
 	"github.com/diamondburned/arikawa/v2/voice/voicegateway"
@@ -11,10 +10,8 @@ import (
 )
 
 type Speaker struct {
-	Ctx     *bot.Context
-	Voice   *voice.Session
-	Token   string
-	Channel discord.ChannelID
+	Ctx   *bot.Context
+	Voice *voice.Session
 }
 
 // Setup demonstrates the CanSetup interface. This function will never be parsed

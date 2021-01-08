@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/brittonhayes/doomguy/pkg/base"
 	"github.com/brittonhayes/doomguy/pkg/calc"
 	"github.com/brittonhayes/doomguy/pkg/debug"
 	"github.com/brittonhayes/doomguy/pkg/games"
 	"github.com/brittonhayes/doomguy/pkg/guild"
-	"github.com/brittonhayes/doomguy/pkg/handlers"
 	"github.com/brittonhayes/doomguy/pkg/reaction"
 	"github.com/brittonhayes/doomguy/pkg/speaker"
 	"github.com/brittonhayes/doomguy/pkg/template"
@@ -25,24 +25,21 @@ func init() {
 	Formatter.FullTimestamp = true
 	log.SetLevel(log.DebugLevel)
 	log.SetFormatter(Formatter)
-	//os.RemoveAll("./db/")
-}
-
-// TODO create help command generator that reads function params
-func main() {
 
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+}
 
+func main() {
 	var token = os.Getenv("BOT_TOKEN")
 	if token == "" {
 		log.Fatalln("No $BOT_TOKEN given.")
 	}
 
-	// Load the templates from the packr
-	// box
+	// Load the templates from the
+	// packr box
 	box := packr.New("Templates", "./templates")
 	tpl := template.NewTemplates(box)
 

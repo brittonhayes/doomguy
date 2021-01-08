@@ -19,7 +19,7 @@ import "github.com/brittonhayes/doomguy/pkg/debug"
 
 ## type Debug
 
-Flag for administrators only\.
+Debug is the main struct for the debug subcommand
 
 ```go
 type Debug struct {
@@ -41,7 +41,7 @@ NewDebug generates a new instance of Debug
 func (d *Debug) Die(m *gateway.MessageCreateEvent) error
 ```
 
-\~go die This command will be hidden from \~help by default\.
+Die kills the bot's process
 
 ### func \(\*Debug\) GC
 
@@ -49,7 +49,7 @@ func (d *Debug) Die(m *gateway.MessageCreateEvent) error
 func (d *Debug) GC(*gateway.MessageCreateEvent) (string, error)
 ```
 
-\~go GC
+GC triggers the garbage collector
 
 ### func \(\*Debug\) GOOS
 
@@ -57,7 +57,7 @@ func (d *Debug) GC(*gateway.MessageCreateEvent) (string, error)
 func (d *Debug) GOOS(*gateway.MessageCreateEvent) (string, error)
 ```
 
-\~go GOOS
+GOOS returns the operating system being used to host the bot
 
 ### func \(\*Debug\) Goroutines
 
@@ -65,7 +65,7 @@ func (d *Debug) GOOS(*gateway.MessageCreateEvent) (string, error)
 func (d *Debug) Goroutines(*gateway.MessageCreateEvent) (string, error)
 ```
 
-\~go goroutines
+Goroutines returns the number of workers running
 
 ### func \(\*Debug\) Setup
 
@@ -73,7 +73,7 @@ func (d *Debug) Goroutines(*gateway.MessageCreateEvent) (string, error)
 func (d *Debug) Setup(sub *bot.Subcommand)
 ```
 
-Setup demonstrates the CanSetup interface\. This function will never be parsed as a callback of any event\.
+Setup initializes the debug sub command
 
 
 

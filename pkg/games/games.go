@@ -3,7 +3,7 @@ package games
 import (
 	"fmt"
 	. "github.com/brittonhayes/doomguy/internal"
-	"github.com/brittonhayes/doomguy/pkg/handlers"
+	"github.com/brittonhayes/doomguy/pkg/base"
 	"github.com/brittonhayes/doomguy/pkg/template"
 	"github.com/diamondburned/arikawa/v2/bot"
 	"github.com/diamondburned/arikawa/v2/discord"

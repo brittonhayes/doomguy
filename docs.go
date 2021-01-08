@@ -1,6 +1,8 @@
-// package doomguy is a yaml-configurable discord bot
+// doomguy is a yaml-configurable discord bot
 //
 // Installation
 //
-//  go get github.com/brittonhayes/doomguy
+// 	go get github.com/brittonhayes/doomguy
+//
+//
 package main
